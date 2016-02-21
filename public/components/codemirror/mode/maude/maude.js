@@ -7,30 +7,27 @@ CodeMirror.defineSimpleMode("maude", {
   start: [
     // The regex matches the token, the token property contains the type
     {regex: /"(?:[^\\]|\\.)*?"/, token: "string"},
-    // You can match multiple tokens at once. Note that the captured
-    // groups must span the whole string in this case
-    {regex: /(fmod)(\s+)([a-z$][\w$])(\s+)(is)/,
-     token: ["keyword", null, "variable-2", null, "keyword"]},
-    // Rules are matched in the order in which they appear, so there is
-    // no ambiguity between this one and the one above
-    {regex: /(?:sort|op|vars|eq|endfm|reduce|red|in)\b/,
+    
+    {regex: /is\b/, token: "keyword", indent: true},
+    {regex: /endfm\b/, token: "keyword", dedent: true, dedentIfLineStart: true},
+    
+    {regex: /(?:sort|subsort|subsorts|fmod|op|ops|sorts|var|ceq|vars|eq|in|assoc|comm|prec)\b/,
      token: "keyword"},
-    {regex: /true|false|null|undefined/, token: "atom"},
+
+    {regex: /(reduce|parse)\s/, token: "atom"},
+    {regex: /red\s/, token: "atom"},
+
     {regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
      token: "number"},
-    {regex: /\/\/.*/, token: "comment"},
+
+    {regex: /\*\*\*.*/, token: "comment"},
+
     {regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3"},
     // A next property will cause the mode to move to a different state
-    {regex: /\/\*/, token: "comment", next: "comment"},
-    {regex: /[-+\/*=<>!]+/, token: "operator"},
+    {regex: /[-+\/*\.=<>!]+/, token: "operator"},
     // indent and dedent properties guide autoindentation
-    {regex: /is/, indent: true},
-    {regex: /endfm/, dedent: true},
-    {regex: /[a-z$][\w$]*/, token: "variable"},
-    // You can embed other modes with the mode property. This rule
-    // causes all code between << and >> to be highlighted with the XML
-    // mode.
-    {regex: /<</, token: "meta", mode: {spec: "xml", end: />>/}}
+    // {regex: /.*is/, indent: true},
+    {regex: /[a-z$][A-Z$][\w$]*/, token: "variable-2"},
   ],
   // The multi-line comment state.
   comment: [
@@ -43,6 +40,6 @@ CodeMirror.defineSimpleMode("maude", {
   // specific to simple modes.
   meta: {
     dontIndentStates: ["comment"],
-    lineComment: "//"
+    lineComment: "***"
   }
 });

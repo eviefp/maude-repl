@@ -26,6 +26,7 @@ app.post('/repl', function(req, res) {
                         if(!sent) {
                             res.send(response);
                             sent = true;
+                            maude.kill();
                         }                                                        
                     }
 
@@ -48,7 +49,9 @@ app.post('/repl', function(req, res) {
                     });
 
                     maude.on('close', (code) => {
-                        res.send('Maude crashed :(')
+                        if(!sent) {
+                            res.send('Maude crashed :(');
+                        }
                     });
                    
                } 
@@ -58,6 +61,6 @@ app.post('/repl', function(req, res) {
        
 });
 
-app.listen(3000, '0.0.0.0', function() {
+app.listen(3000, function() {
     console.log('Running on port 3000');
 });
