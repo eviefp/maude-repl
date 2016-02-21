@@ -1,0 +1,14 @@
+{
+  "name": "maude-repl",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Vladimir Ciobanu"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "dependencies": {
+    "codemirror": "^5.12.0"
+  }
+}
