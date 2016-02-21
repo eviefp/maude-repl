@@ -1,0 +1,70 @@
+header > h1 {
+    float: left;
+    width: 48%;
+}
+
+header > h2 {
+    float: left;
+    width: 48%;
+    margin-left: 2%;
+    margin-bottom: 0;
+    margin-top: 35px;
+}
+
+input[type="button"] {
+    padding: 5px;
+    margin: 10px 5px 10px 0px;
+}
+
+#input-container {
+    width: 48%;
+    float: left;
+}
+
+#output {
+    width: 48%;
+    margin-left: 2%;
+    float: left;
+    background: #e0e0e0;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    border-left: 1px solid crimson;
+    padding-left: 5px;
+    margin-top: 0px;
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#keyboard-shortcuts {
+    position: absolute;
+    z-index: 15;
+    top: 0;
+    right: 0;
+    background-color: rgb(0,0,0);
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    opacity: 0.70;
+    color: white;
+    text-shadow: black 1px 1px 7px;
+}
+
+#keyboard-shortcuts strong {
+    color: rgb(221, 221, 0);
+}
+
+#keyboard-shortcuts .detail {
+    text-indent: 1em;
+    font-size: 0.9em;
+    padding-top: 2em;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

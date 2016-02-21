@@ -1,18 +1,46 @@
+<!doctype html>
 <html>
 <head>
     <title>Hello, Maude</title>
+    <link rel="stylesheet" href="style.css">    
     <link rel="stylesheet" href="components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="components/codemirror/theme/zenburn.css">
 </head>
 
 <body>
-    <h1>Maude REPL</h1>
-    <textarea rows="10" cols="80" id="input"></textarea>
-    <input type="button" value="run" id="run" />
+    <header>
+        <h1>Maude REPL</h1>
+        <h2>Output</h2>
+    </header>
+    <div style="clear: both"></div>
+    <div id="input-container">
+        <textarea rows="30" cols="80" id="input"></textarea>
+        <input type="button" value="Run (F9)" id="run" />
+        <input type="button" value="Clear (F2)" onclick="clearTextArea()" />
+        <input type="button" value="Help (Ctrl-/)" onclick="toggleHelp()" />
+        
+    </div>
     <pre id="output"></pre>
     
-    <script type="text/javascript" src="components/codemirror/lib/codemirror.js"></script>
-    <script type="text/javascript" src="components/codemirror/mode/maude/maude.js"></script>
+    <div id="keyboard-shortcuts" class="hide">
+        <h2>Keyboard shortcuts</h2>
+        <p><strong>Ctrl-A</strong>: Select the whole content of the editor.</p>
+        <p><strong>Ctrl-D</strong>: Deletes the whole line under the cursor, including newline at the end.</p>
+        <p><strong>Ctrl-Z</strong>: Undo the last change.</p>
+        <p><strong>Ctrl-Y</strong>: Redo the last undone change.</p>
+        <p><strong>Ctrl-Home</strong>: When multiple selections are present, this deselects all but the primary selection.</p>
+        <p><strong>Ctrl-End</strong>: When multiple selections are present, this deselects all but the primary selection.</p>
+        <p><strong>Ctrl-]</strong>: When multiple selections are present, this deselects all but the primary selection.</p>
+        <p><strong>Ctrl-[</strong>: When multiple selections are present, this deselects all but the primary selection.</p>
+        <p><strong>F9</strong>: Run the code through Maude.</p>
+        <p><strong>F2</strong>: Clear the text area.</p>        
+        <p><strong>Ctrl-/</strong>: Toggle this window.</p>
+        <p class="detail">Note: On Mac, replace Ctrl with Cmd</p>
+    </div>
     
+    <script type="text/javascript" src="components/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="components/codemirror/addon/mode/simple.js"></script>
+    <script type="text/javascript" src="components/codemirror/mode/maude/maude.js"></script>    
     <script type="text/javascript" src="run.js"></script>
     
 </body>
