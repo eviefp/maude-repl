@@ -6,9 +6,10 @@ In order to install the Maude REPL server you need the following:
 - nginx to act as a proxy for nodejs (install using your distribution's package manager or from the [nginx website](http://nginx.org/en/download.html))
 - unzip, wget
 
+Open a console on the linux server and go through the following commands:
 ```bash
 # Clone the REPL github repository
-$ git clone https://github.com/vladciobanu/maude-repl
+git clone https://github.com/vladciobanu/maude-repl
 
 # Go to the folder and prepare the Maude binary folder
 cd maude-repl
