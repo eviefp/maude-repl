@@ -61,6 +61,11 @@ input[type="button"] {
     padding-top: 2em;
 }
 
+#footer {
+    position: absolute;
+    bottom: 15px;
+}
+
 .show {
     display: block;
 }

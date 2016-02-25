@@ -10,7 +10,10 @@ app.use(express.static('public'));
 app.use(bodyParser.json({ strict: false }));
 
 app.post('/repl', function(req, res) {
-    
+    if(req.body.run.indexOf('SOCKET') > -1) {
+        res.send('Nope. No sockets.');
+        return;
+    }
     temp.open('myPrefix', function(err, info) {
         if(!err) {
             fs.write(info.fd, req.body.run);
@@ -21,18 +24,23 @@ app.post('/repl', function(req, res) {
                     var response = "";
                     var sent = false;
                     var timeoutHandler = null;
-                    
+                    var overallTimeoutHandler = null;
+
                     var sendResponse = function() {
+                        if(overallTimeoutHandler) {
+                            clearTimeout(overallTimeoutHandler);
+                            overallTimeoutHandler = null;
+                        }
                         if(!sent) {
                             res.send(response);
                             sent = true;
                             maude.kill();
-                        }                                                        
+                        }
                     }
 
                     maude.stdout.on('data', (data) => {
                         response += data;
-                        console.log(data.toString());                        
+                        console.log(data.toString());
                         if(data.indexOf("Maude>") > -1) {
                             if(timeoutHandler)
                                 clearTimeout(timeoutHandler);
@@ -49,16 +57,20 @@ app.post('/repl', function(req, res) {
                     });
 
                     maude.on('close', (code) => {
-                        if(!sent) {
-                            res.send('Maude crashed :(');
-                        }
+                        response += 'Maude crashed :(';
+                        clearTimeout(timeoutHandler);
+                        sendResponse();
                     });
-                   
-               } 
+
+                    overallTimeoutHandler = setTimeout(function() {
+                        response += "Maude timed out after 10 minutes";
+                        sendResponse();
+                    }, 10 * 60 * 1000);
+               }
             });
         }
     })
-       
+
 });
 
 app.listen(3000, function() {
